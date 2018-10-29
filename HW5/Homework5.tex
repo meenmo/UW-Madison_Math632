@@ -1,0 +1,106 @@
+% --------------------------------------------------------------
+% This is all preamble stuff that you don't have to worry about.
+% Head down to where it says "Start here"
+% --------------------------------------------------------------
+ 
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,scrextend}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{fancybox}
+\usepackage{tikz}
+\usepackage{tasks}
+\pagestyle{fancy}
+\usepackage[makeroom]{cancel}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{mwe}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\qed}{\hfill$\blacksquare$}
+\let\newproof\proof
+\renewenvironment{proof}{\begin{addmargin}[1em]{0em}\begin{newproof}}{\end{newproof}\end{addmargin}\qed}
+% \newcommand{\expl}[1]{\text{\hfill[#1]}$}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{reflection}[2][Reflection]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\setlength{\parindent}{0pt}
+\begin{document}
+ \settasks{
+	counter-format=(tsk[r]),
+	label-width=4ex
+}
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+\lhead{Math 632}
+\chead{Homework 5}
+\rhead{Meenmo Kang}
+
+\noindent
+\textbf{Question 1}\\
+Copy machine 1 is in use now. Machine 2 will be turned on at time t.
+Suppose that the machines fail at rate $\lambda_i$. What is the probability that machine 2 is the first to fail?
+
+\vspace{1.5\baselineskip}
+
+\textbf{Question 2}\\
+Let $S$ and $T$ be exponentially distributed with rates $\lambda$ and $\mu$. Let $U= min\{S,T\}$ and $V=max\{S,T\}$. Find
+\begin{enumerate}[label=(\alph*)]
+    \item $EU$
+    \item $E(V-U)$. Compute first $P(V-U > s)$ for $s>0$ either by integrating densities of $S$ and $T$ or by conditioning on the events $S<T$ and $T<S$. From $P(V-U>s)$ deduce the density function $f(v-u)$ of $V-U$, and then the mean $E(V-U)$ by integrating the density.
+    \item $EV$
+\end{enumerate}
+Finally, check that your answers to (a),(b),(c) satisfy $E(V-U) = E(V)-E(U)$.
+
+
+\vspace{1.5\baselineskip}
+\textbf{Question 3}\\
+In a hardware store you must first go to server 1 to get your goods and then go to a server 2 to pay for them. Suppose that the times for the two activities are exponentially distributed with means 6 minutes and 3 minutes. Find the answer when times for the two activities are exponentially distributed with rates $\lambda$ and $\mu$. For symmetric notation, let $A_i$ denote the amount of time Al spends at server $i$, and $B_i$ the amount of time Bob spends at server $i$, for $i=1,2$.\\
+$Hint$. Draw a picture of the time line to understand how Al and Bob move through the servers. Use your answer from 2.7. This problem requires no integration.
+
+\vspace{1.5\baselineskip}
+\textbf{Question 4}\\
+A machine has two critically important parts and is subject to three different types of shocks. Shocks of type i occur at times of a Poisson process with rate $\lambda_i$. Shocks of types 1 break part 1, those of type 2 break part 2, while those of type 3 break both parts. Let $U$ and $V$ be the failure times of the two parts.
+\begin{enumerate}[label=(\alph*)]
+    \item Find $P(U>s,V>t)$
+    \item Find the distribution of $U$ and the distribution of $V$.
+    \item Are $U$ and $V$ independent?
+\end{enumerate}
+$Hint.$ Let $N_i$ denote a Poisson process of rate $\lambda_i$. For part (a), express the event in terms of $N_1, N-2$ and $N_3$. Part (b) follows quickly from (a). For part (c), check whether $P(U>s,V>t)$ equals $P(U>s)\cdot P(V>t)$.
+
+\vspace{1.5\baselineskip}
+\textbf{Question 5}\\
+Consider a Poisson process of rate $\lambda$ and let $s$ be a fixed positive number. Let $\sigma$ be the
+random amount of time from s till the next arrival. In symbols,
+$$\sigma = \left(\min\limits_{k:T_k>s} T_k\right) - s.$$
+{\sl Calculate rigorously the probability} the probability $P(\sigma>a)$ for real $a>0$ by using the density functions of the arrival times $T_k$ and the interarrival times $\tau_k$.\\
+$Hint.$ Draw a picture of the time line. Since $s+\sigma$ is one of the arrival times, you can decompose the probability $P(\sigma>a)$ into different cases according to which $T_k$ is equal to $s+\sigma$.
+
+
+\end{document}

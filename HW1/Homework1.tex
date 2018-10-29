@@ -1,0 +1,416 @@
+% --------------------------------------------------------------
+% This is all preamble stuff that you don't have to worry about.
+% Head down to where it says "Start here"
+% --------------------------------------------------------------
+ 
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,scrextend}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{fancybox}
+\usepackage{tikz}
+\pagestyle{fancy}
+
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\qed}{\hfill$\blacksquare$}
+\let\newproof\proof
+\renewenvironment{proof}{\begin{addmargin}[1em]{0em}\begin{newproof}}{\end{newproof}\end{addmargin}\qed}
+% \newcommand{\expl}[1]{\text{\hfill[#1]}$}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{reflection}[2][Reflection]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+\lhead{Math 632}
+\chead{Homework 1}
+\rhead{Meenmo Kang}
+
+\noindent
+1. Let A and B be two events on the same sample space. 
+\begin{enumerate}[label=(\alph*)]
+    \item Suppose $P(A) = p, P(B) = q$, and $P(A|B) = r$. Deduce $P(A \cap B)$ and $P(B|A)$.
+        \begin{itemize}
+            \item $P(A\cap B)$
+                \begin{itemize}
+                    \item Conditional probability $P(A|B)$ is defined as $\frac{P(A\cap B)}{P(B)}$. i.e. $P(A|B)$ = $\frac{P(A\cap B)}{P(B)}$
+                    \item $P(A|B)$ and $P(B)$ are given above; $r$ and $q$ respectively.
+                    \item Thus $P(A\cap B) = P(A|B) \cdot P(B) = rq.$
+                \end{itemize}
+            
+            \item $P(B|A)$
+                \begin{itemize}
+                    \item Conditional probability $P(B|A) = \frac{P(B\cap A)}{P(A)}$ 
+                    \item $P(B\cap A) = P(A\cap B) = rq$ as we proved above.
+                    \item Thus $P(B|A) = \frac{rq}{p}$
+                \end{itemize}
+          \end{itemize}
+          
+    \item Give an example where $P(A|B) > P(A)$ and neither A nor B is equal to the whole space or the empty set. (This means that you give a sample space $\Omega$, a probability measure P on $\Omega$, and define two events A and B on $\Omega$ that satisfy the question.)
+        \begin{itemize}
+            \item Let's roll a die. Suppose A is a probability of getting one of $\{1,2,3\}$, and B = A.
+            \item Then A\cap B = \{1,2,3\}, \text{ so } $P(A\cap B) = \frac{1}{2}$.
+            \item Meanwhile, $P(A) = P(B) = \frac{1}{2};$ hence $P(A)P(B) = \frac{1}{4}$.
+            \item Thus $P(A|B) = \frac{P(A\cap B)}{P(B)} > P(A) \Leftrightarrow P(A\cap B) > P(A)P(B) \Leftrightarrow \frac{1}{2} > \frac{1}{4}$
+        \end{itemize}\\
+        
+    \item Give an example where $P(A|B) < P(A)$ and neither A nor B is equal to the whole
+    space or the empty set.
+        \begin{itemize}
+            \item Let's roll a die again. Suppose A is a probability of getting one of {1,2,3}, and B is a that of getting even number.
+            \item Then $P(A) = \frac{1}{2}, P(B) = \frac{1}{2}, \text{ and } P(A\cap B) = P(\{2\}) = \frac{1}{6}$
+            \item Hence $P(A)P(B) = \frac{1}{4} > P(A\cap B) =\frac{1}{6}$.
+            \item Thus it satisfies $P(A|B) < P(A) \Leftrightarrow P(A\caq B) < P(A)P(B)$.
+        \end{itemize}
+\end{enumerate}
+\newpage
+\noindent
+2. Let $p, q, r$ be positive reals such that \textbf{$p + q + r = 1$} and let n be a positive integer. Let (X,Y,Z) have multinomial distribution with parameters $(n, 3, p, q, r)$. This means that the joint probability mass function is $$P(X = k, Y = l, Z = m) = \frac{n!}{k!\;l!\;m!} p^kq^lr^m$$ for integers $k, l, m \ge$ 0 such that $k+l+m = n$. This distribution arises from the following
+experiment: perform n independent repetitions of a trial with three possible outcomes
+with probabilities $p, q, r$ and let $X,Y,Z$ count how many times these outcomes appear.\\
+
+\noindent
+Calculate the probability mass function of $W = X + Y$ and identify its distribution by
+name. After the calculation, give an intuitive justification for the answer you obtained.
+$Hints$: Figure out what the possible values of W are. To calculate $P(W = a)$ for each
+possible value a, decompose $P(W = a)$ according to the different values of $(X,Y,Z)$ that
+make up the event ${W = a}$. Use the PMF of $(X,Y,Z)$.\\\\
+
+\noindent
+Since $W$ is given in terms of X and Y, Z should be removed for convenience.
+
+\begin{itemize}
+    \item $k +l + m = n$ $\Leftrightarrow$ $m = n - k - l$
+    \item $p + q + r = 1\; \Leftrightarrow \; r = 1 - p - q$
+\end{itemize}
+$$P(X = k, Y = l, Z = m) = \frac{n!}{k!\;l!\;m!} p^kq^lr^m \Rightarrow P(X = k, Y = l) =\frac{n!}{k!\;l!\;(n-k-l)!}p^kq^l(1-p-q)^{n-k-l}$$
+$$P(X+Y=w\;|\;X+Y=W,\;W=w) = \sum_{k=0}^w P(X=k, Y=w-k)$$ 
+$$= \sum_{k=0}^w \frac{n!}{k!(w-k)!(n-w)!}p^kq^l(1-p-q)^{n-k-l}= \frac{n!}{\mathbf{w!}(n-w)!}(1-p-q)^{n-w}\sum_{k=0}^w \frac{\mathbf{w!}}{k!(w-k)!}p^kq^{w-k}$$
+$$=\frac{n!}{\mathbf{w!}(n-w)!}(1-p-q)^{n-w} \;\sum_{k=0}^w \binom wk \;p^k\; q^{w-k} = \frac{n!}{w!(n-w)!}(1-p-q)^{n-w}\; (p + q)^w $$
+$$=\frac{n!}{w!(n-w)!} (p + q)^w \; (1-(p+q))^{n-w} $$\\
+
+\noindent
+Thus $$P(W= X + Y) = \frac{n!}{w!(n-w)!} (p + q)^w \; (1-(p+q))^{n-w}$$ 
+whose distribution is binomial:  $$P(W = X + Y) \sim Bin(n, p+q)$$
+
+\newpage
+\noindent
+3. Let $n \ge 2$ and $0 < p < 1$. Let $X_1,X_2, . . . ,X_n$ be $i.i.d.$ Bernoulli random variables with success probability $p$ and $S_n = X1 + · · · + Xn$. The Bernoulli assumption means that each $X_i$ has PMF $P(X_i = 1) = p = 1 - P(X_i = 0)$.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Compute the conditional joint probability mass function of the random vector
+    $(X_1, . . . ,X_n)$, given that $S_n = k$. That is, find $$P(X_1 = a_1, X_2 = a_2, ..., X_n = a_n\;|\;S_n = k)$$ for all vectors $(a_1,...,a_n)$ of zeros and ones, and all $k \in \{0,...,n\}$.\\
+    $Hints.$ Use the definition of conditional probability. Which vectors $(a_1, . . . , a_n)$ are compatible with $S_n = k$? Check that your conditional PMF sums to 1 over all vectors $(a_1, . . . , a_n).$\\
+    
+The meaning of the given condition $S_n = k$ is the sum of $a_i \;\forall\; i \in \Z_{\ge 1}.$
+i.e. $\sum_{i=1}^n a_i = k$  \\
+
+Since $a_i$ is either 0 or 1 and $S_n=k$ is defined as above, simply
+$$P(X_1 = a_1, X_2 = a_2, ..., X_n = a_n\;|\;S_n = k) = \frac{1}{\binom nk}$$
+
+
+\newpage
+    \item Deduce whether $X_1, . . . ,X_n$ are conditionally independent, given $S_n = k$. (The general definition is that random variables $X_1, . . . ,X_n$ are conditionally independent, given an event B such that $P(B) > 0$, if $$P(X_1 = a_1, X_2 = a_2,...,X_n=a_n\;|\;B) = \prod_{i=1}^n P(X_i = a_i\;|\;B)$$ for all possible values $a_1,...,a_n).$\\
+    $Hints.$ Consider cases $k = 0,\; 0 < k < n$ and $k = n$.
+    
+    \begin{enumerate}[label=(\roman*)]
+       \item k = 0
+        
+            \begin{itemize}
+                \item $P(X_1 = a_1, X_2 = a_2,...,X_n=a_n\;|\;S_n=0)=$\\
+                $P(X_1 = 0, X_2 = 0,...,X_n=0\;|\;S_n=0) =\\ 
+                \prod_{i=1}^n P(X_i = 0\;|\;S_n=0) = \frac{1}{\binom n0} = 1$
+            \end{itemize}
+            
+        \item k = n 
+        
+            \begin{itemize}
+                \item $P(X_1 = a_1, X_2 = a_2,...,X_n=a_n\;|\;S_n=n)=$\\
+                $P(X_1 = 1, X_2 = 1,...,X_n=1\;|\;S_n=n) = \\
+                \prod_{i=1}^n P(X_i = 1\;|\;S_n=n) = \frac{1}{\binom nn} = 1$
+            \end{itemize}
+            
+        \item $0 < k < n$
+        
+            \begin{itemize}
+                \item $P(X_1 = a_1, X_2 = a_2, ..., X_n = a_n\;|\;S_n = k) = \frac{1}{\binom nk}$
+                
+                \item $\prod_{i=1}^n P(X_i = a_i\;|\;S_n=k) =\\ 
+                \prod_{i=1}^k P(X_i=1\;|\;S_n=k) \cdot \prod_{i=1}^{n-k} P(X_i = 0\;|\;S_n=0)$\\
+                
+                where
+                \begin{itemize}
+                    \item $\prod_{i=1}^k P(X_i=1\;|\;S_n=k) = \frac{k}{n}$
+                    \item $ \prod_{i=1}^{n-k} P(X_i = 0\;|\;S_n=0) = 1 - \prod_{i=1}^k P(X_i=1\;|\;S_n=k) = 1 - \frac{k}{n} = \frac{n-k}{n}$\\
+                \end{itemize}
+                
+                
+                \item Hence $\prod_{i=1}^n P(X_i = a_i\;|\;S_n=k) = (\frac{k}{n})^k \cdot (\frac{n-k}{n})^{n-k}$
+                
+                \item Obviously, $\frac{1}{\binom nk} \neq (\frac{k}{n})^k \cdot (\frac{n-k}{n})^{n-k}$\\
+                i.e. $P(X_1 = a_1, X_2 = a_2, ..., X_n = a_n\;|\;S_n = k) \neq \prod_{i=1}^n P(X_i = a_i\;|\;S_n=k)$\\
+                
+                \item Thus, in case of either k = 0 or k = n, $X_1, . . . ,X_n$ are independent; \\
+                      Otherwise, they are not for $n \ge 2$.
+                
+            \end{itemize}
+    \end{enumerate}
+        
+\end{enumerate}
+
+\newpage\noindent
+\textbf{1.1} A fair coin is tossed repeatedly with results $Y_0, Y_1, Y_2, . . .$ that are 0 or 1
+with probability 1/2 each. For $n \ge 1$ let $X_n = Y_n + Y_{n-1}$ be the number of 1\textquotesingle s
+in the $(n - 1)th$ and $nth$ tosses. Is $X_n$ a Markov chain?\\
+
+\begin{itemize}
+    \item If it is to be a Markov Chain,\\ 
+    $P(X_n = i\;|\;X_{n-1} = j,\; X_{n-2} = k) = P(X_n = i\;|\;X_{n-1} = j)$ should be satisfied.
+    
+    \begin{itemize}
+        \item Consider $P(X_3 =2\;|\;X_2=1)$
+        
+          $P(X_3 =2\;|\;X_2=1) = \frac{P(X_3=2,\; X_2=1)}{P(X_2 = 1)} = \frac{\frac{1}{4}\cdot\frac{1}{2}}{\frac{1}{2}} =\frac{1}{4}$ \\
+    
+    \item Let's consider one more restriction: In case of $X_1=0$
+        
+            $P(X_3 =2\;|\;X_2=1,\;X_1=0) = P(Y_3 = 1) = \frac{1}{2}$\\
+    
+    \item Thus $P(X_3 =2\;|\;X_2=1) \neq P(X_3 =2\;|\;X_2=1,\;X_1=0)$, so\\ 
+          this is not a Markov Chain.
+        
+        
+    
+    \end{itemize}
+\end{itemize}
+
+
+\newpage\noindent
+\textbf{1.2} Five white balls and five black balls are distributed in two urns in such a
+way that each urn contains five balls. At each step we draw one ball from each
+urn and exchange them. Let $X_n$ be the number of white balls in the left urn at
+time $n$. Compute the transition probability for $X_n$.\\
+
+\noindent
+Consider the transitional probability of $X_n$: $p(i,j)$ where 
+\begin{itemize}
+    \item The Left Urn
+        \begin{itemize}
+            \item $i$: the number of white ball 
+            \item $5-i$: the number of black balls
+        \end{itemize}
+    \item The Right Urn
+        \begin{itemize}
+            \item $i$: the number of black balls 
+            \item $5-i$: the number of white balls
+        \end{itemize}
+\end{itemize}
+We can break this into three different cases.
+
+\begin{enumerate}[label=(\alph*)]
+    \item $i = j$\\
+          This is the case when we choose white balls from both urns: No changes. 
+          $$p(i,j) = \frac{i}{5} \cdot \frac{5-i}{5} \cdot 2$$
+    \item $i = j + 1$\\
+          This is the case when we choose a black ball from the left urn, and a white ball from the right urn.
+          $$p(i,j) = \frac{5-i}{5} \cdot \frac{5-i}{5}$$
+    \item $i = j - 1 $\\
+          This is the case when we choose a white ball from the left urn, and a black ball from the right urn.
+          $$p(i,j) = \frac{i}{5} \cdot \frac{i}{5}$$
+\end{enumerate}
+Thus the transitional probability for $X_n$ is\\
+$$
+p(i,j)=\begin{cases}
+1 \text{$\qquad\qquad$for $X_n$ = 0 or 5} \\
+\frac{i}{5} \cdot \frac{5-i}{5} \cdot 2\text{\;\;for i = j} \\
+\frac{5-i}{5} \cdot \frac{5-i}{5}\text{\quad for i = j + 1}\\
+\frac{i}{5} \cdot \frac{i}{5}\text{\qquad\; for i = j - 1}\\
+0 \text{\qquad\qquad otherwise}
+\end{cases}$$
+
+\newpage\noindent
+\textbf{1.5} Consider a gambler’s ruin chain with N = 4. That is, if $1 \le i \le 3$,
+$p(i, i + 1) = 0.4$, and $p(i, i - 1) = 0.6$, but the endpoints are absorbing states:
+$p(0, 0) = 1$ and $p(4, 4) = 1$. Compute $p^3(1, 4)$ and $p^3(1, 0)$.\\
+
+\begin{enumerate}[label=(\roman*)]
+    \item $p^3(1,4)$
+        \begin{itemize}
+            \item $1 \Rightarrow 2 \Rightarrow 3 \Rightarrow 4$: 0.4 x 0.4 x 0.4 = 0.064
+        \end{itemize}
+        
+    \item $p^3(1,0)$
+    
+    \begin{tikzpicture}[level/.style={sibling distance=60mm/#1}]
+        \node [circle,draw] (z){1}
+          child {node [circle,draw] (a) {0}
+            child {node [circle,draw] (b) {0}
+              child {node [circle,draw] (c) {0}        } 
+              child {node [circle,draw] (d) {0}        }
+            }
+            child {node [circle,draw] (g) {0}
+              child {node [circle,draw] (c) {0}        } 
+              child {node [circle,draw] (d) {0}        }
+            }
+          }
+          child {node [circle,draw] (a) {2}
+            child {node [circle,draw] (b) {1}
+              child {node [circle,draw] (c) {0}        } 
+              child {node [circle,draw] (d) {2}        }
+            }
+            child {node [circle,draw] (g) {3}
+              child {node [circle,draw] (c) {2}        } 
+              child {node [circle,draw] (d) {4}        }
+            }
+          }\\
+    \end{tikzpicture}
+            
+        \begin{itemize}
+            \item $1 \Rightarrow 0 \Rightarrow 0 \Rightarrow 0$: 0.6 x 1 x 1 = 0.6
+            \item $1 \Rightarrow 2 \Rightarrow 1 \Rightarrow 0$:  0.4 x 0.6 x 0.6 = 0.144
+        \end{itemize}
+        $\quad\Rightarrow p^3(1,0) = 0.6 + 0.144 = 0.744$
+\end{enumerate}
+
+
+
+
+\newpage\noindent
+\textbf{1.6} A taxicab driver moves between the airport A and two hotels B and C
+according to the following rules. If he is at the airport, he will be at one of
+the two hotels next with equal probability. If at a hotel then he returns to the
+airport with probability 3/4 and goes to the other hotel with probability 1/4.
+\begin{enumerate}[label=(\alph*)]
+    \item Find the transition matrix for the chain.\\
+    
+    $$P = \begin{bmatrix} 
+        0 & \frac{1}{2} & \frac{1}{2} \\ 
+        
+        \frac{3}{4} & 0 & \frac{1}{4} \\ 
+        
+        \frac{3}{4} & \frac{1}{4} & 0  \\
+        
+        \end{bmatrix}$$
+    \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad where 1: Airport, 2: Hotel B, 3: Hotel C\\
+
+    \item Suppose the driver begins
+at the airport at time 0. Find the probability for each of his three possible
+locations at time 2 and the probability he is at hotel B at time 3.\\
+    
+    \begin{itemize}
+        \item The probability of being in Airport at time 2
+            \begin{itemize}
+                \item Airport $\rightarrow$ Hotel B $\rightarrow$ Airport: $\frac{1}{2} \cdot \frac{3}{4} = \frac{3}{8}$
+                \item Airport $\rightarrow$ Hotel C $\rightarrow$ Airport: $\frac{1}{2} \cdot \frac{3}{4} = \frac{3}{8}$  \\
+                $\Rightarrow \frac{3}{8} + \frac{3}{8} = \frac{3}{4}$\\
+                
+                The probability of being in the Airport for next time is $\frac{1}{2}$.\\
+                
+            \end{itemize}
+        \item The probability of being in Hotel B at time 2
+            \begin{itemize}
+                \item Airport $\rightarrow$ Hotel C $\rightarrow$ Hotel B: $\frac{1}{2} \cdot \frac{1}{4} = \frac{1}{8}$ \\
+                
+                The probability of being in the Airport for next time is 0.\\
+            \end{itemize}
+        \item The probability of being in Hotel C at time 2\\
+        
+
+            \begin{itemize}
+                \item Airport $\rightarrow$ Hotel B $\rightarrow$ Hotel C: $\frac{1}{2} \cdot \frac{1}{4} = \frac{1}{8}$ \\
+                
+                The probability of being in the Hotel B for next time is $\frac{1}{4}$.\\
+            \end{itemize}
+    \end{itemize}
+    
+    Thus $$P(X_3 = \text{Hotel B}\;|\;X_0 = \text{Airport}) = \frac{3}{4} \cdot \frac{1}{2} + \frac{1}{8} \cdot \frac{1}{4} = \frac{13}{32}$$
+\end{enumerate}
+
+\newpage\noindent
+\textbf{1.7} Suppose that the probability it rains today is 0.3 if neither of the last two
+days was rainy, but 0.6 if at least one of the last two days was rainy. Let the
+weather on day $n, W_n$, be R for rain, or S for sun. $W_n$ is not a Markov chain,
+but the weather for the last two days $X_n = (W_{n-1},W_n)$ is a Markov chain
+with four states $\{RR,RS, SR, SS\}$. 
+\begin{enumerate}[label=(\alph*)]
+    \item Compute its transition probability.\\
+    
+        \begin{matrix}
+            & RR & RS & SR & SS\\
+        RR  & 0.6& 0.4& 0  & 0\\
+        SR  & 0.6& 0.4& 0  & 0\\
+        RS &  0.6& 0  & 0  & 0.4\\
+        SS & 0  &0  & 0.3  &0.7
+        \end{matrix}
+    \item Compute the two-step transition probability.\\
+        
+        $p^2 = 
+        \begin{bmatrix}
+         0.6&  0.4& 0    & 0\\
+         0.6&  0.4& 0    & 0\\
+         0.6&  0  & 0    & 0.4\\
+         0  &  0  & 0.3  &0.7
+        \end{bmatrix}
+        \cdot 
+        \begin{bmatrix}
+         0.6&  0.4& 0    & 0\\
+         0.6&  0.4& 0    & 0\\
+         0.6&  0  & 0    & 0.4\\
+         0  &  0  & 0.3  &0.7
+        \end{bmatrix}
+        =
+         \begin{bmatrix}
+         0.6&  0.4& 0    & 0\\
+         0.6&  0.4& 0    & 0\\
+         0.36&  0.24  & 0.12    & 0.28\\
+         0.18  &  0  & 0.21  &0.61
+        \end{bmatrix}
+        $
+    \newline
+
+        \begin{matrix}
+        \\
+            & RR & RS & SR & SS\\
+        RR & 0.6&  0.4& 0    & 0\\
+        SR &  0.6&  0.4& 0    & 0\\
+        RS & 0.36&  0.24  & 0.12    & 0.28\\
+        SS & 0.18  &  0  & 0.21  &0.61
+        \end{matrix}
+        
+    \item What is the probability it will rain on Wednesday given that it did not rain on Sunday or Monday.\\
+    $$P\{X_2 = SR \;|\; X_0 =SS\} + P\{X_2 = RR\;|\;X_0 = SS\} = 0.21 + 0.18 = 0.39$$
+\end{enumerate}
+
+
+
+% --------------------------------------------------------------
+%     You don't have to mess with anything below this line.
+% --------------------------------------------------------------
+ 
+\end{document}
