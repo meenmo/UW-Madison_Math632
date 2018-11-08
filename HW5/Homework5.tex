@@ -67,40 +67,184 @@
 Copy machine 1 is in use now. Machine 2 will be turned on at time t.
 Suppose that the machines fail at rate $\lambda_i$. What is the probability that machine 2 is the first to fail?
 
-\vspace{1.5\baselineskip}
+\begin{itemize}
+    \item Let $A$ be the event that Machine 1 does not fail before time $t$ and $B$ be the event that Machine 2 fails first after time $t$.
+    \item The probability we try to get is 
+    $$P(A,B) = \frac{P(B\;|\;A)}{P(A)}$$
+    \item Let us think 
+    \begin{itemize}
+        \item $\tau_1 \sim \exp(\lambda_1)$ as the case $A$
+        \item $t+\tau_2 \sim \exp(\lambda_2)$ as the case $B$
+    \end{itemize}
+    
+    \item Then we can construct this conditional probability as below.
+    $$P(t+\tau_2 < \tau_1) = P(t+\tau_2<\tau_1\;|\; t<\tau_1)\cdot P(t<\tau_1)
+    =P(t+\tau_2<\tau_1\;|\; t<\tau_1)\cdot e^{-\lambda_1 t}$$
+    {\sl Recall that $P(T>t) = 1-P(T\le t)=1-\left(1-e^{-\lambda t}\right) = e^{-\lambda t}$}
+    
+    \item By the Memoryless Property, $P(t+\tau_2\;|\; t<\tau_1) = P(\tau_2<\tau_1)$.
+    \item So 
+    $$P(t+\tau_2<\tau_1\;|\; t<\tau_1)\cdot e^{-\lambda_1 t} =  P(\tau_2<\tau_1) \cdot e^{-\lambda_1 t}$$
+    $$=\iint\limits_{\tau_2<\tau_1} f_{\tau_2(x)}f_{\tau_1}\;dydx\cdot e^{-\lambda_1 t}
+    =e^{-\lambda_1 t}\left(\int_0^\infty \lambda_2 e^{-\lambda_2 x}\left(\int_x^\infty \lambda_1 e^{-\lambda_1 y}dy\right)dx\right)$$
+    $$=e^{-\lambda_1 t}\left(\int_0^\infty \lambda_2 e^{-\lambda_2 x}\left(
+    e^{-\lambda_1 x}
+    \right)dx\right)
+    =e^{-\lambda_1 t}\left(\int_0^\infty \lambda_2 e^{-(\lambda_1+\lambda_2) x}
+    dx\right)$$
+    $$=e^{-\lambda_1 t}\left(\int_0^\infty \lambda_2 e^{-(\lambda_1+\lambda_2) x}
+    dx\;\;\cdot\;\; \frac{\lambda_1+\lambda_2}{\lambda_1+\lambda_2}\right)
+    =e^{-\lambda_1 t}\left(\frac{\lambda_2}{\lambda_1+\lambda_2} \int_0^\infty \lambda_2 e^{-(\lambda_1+\lambda_2) x} \;\cdot\;(\lambda_1+\lambda_2)
+    dx \right)    $$
+    
+    \item Since $$\int_0^\infty \lambda_2 e^{-(\lambda_1+\lambda_2) x} \;\cdot\;(\lambda_1+\lambda_2)
+    dx = 1,$$
+    the remainder is the probability that machine 2 is the first to fail
+    $$e^{-\lambda_1 t}\cdot\frac{\lambda_2}{\lambda_1+\lambda_2}$$
+\end{itemize}
 
+\newpage
 \textbf{Question 2}\\
-Let $S$ and $T$ be exponentially distributed with rates $\lambda$ and $\mu$. Let $U= min\{S,T\}$ and $V=max\{S,T\}$. Find
+Let $S$ and $T$ be exponentially distributed with rates $\lambda$ and $\mu$. Let $U= \min\{S,T\}$ and $V=\max\{S,T\}$. Find
 \begin{enumerate}[label=(\alph*)]
     \item $EU$
+    \begin{itemize}
+        \item Since $U=\min\{S,T\}$ is independent, 
+        $$P(U>t) = P(S>t,T>t) = P(S>t)\cdot P(T>t) =e^{-\lambda t}\cdot e^{-\mu t} = e^{-(\lambda+\mu) t}$$
+        
+        \item Hence the expectation $EU$ is
+        $$\frac{1}{\lambda+\mu}$$
+        
+        
+    \end{itemize}
+    
     \item $E(V-U)$. Compute first $P(V-U > s)$ for $s>0$ either by integrating densities of $S$ and $T$ or by conditioning on the events $S<T$ and $T<S$. From $P(V-U>s)$ deduce the density function $f(v-u)$ of $V-U$, and then the mean $E(V-U)$ by integrating the density.
-    \item $EV$
+    
+    \begin{itemize}
+            \item $P(V-U>s)$
+            
+            $$=\int_0^\infty \int_0^\infty (\max\{S,T\}-\min\{S,T\})\cdot \lambda e^{-\lambda s}\mu e^{-\mu t}\;dsdt$$        
+            
+            $$=\int_0^\infty \int_0^\infty (s-t)\lambda \mu e^{-\lambda s -\mu t} \;dsdt \left|_{ s>t }\; 
+            + \int_0^\infty \int_0^\infty (t-s) \lambda\mu e^{-\lambda s -\mu t}\;dsdt\right|_{s<t}$$
+            
+            \vspace{1\baselineskip}
+            Let $x= s-t$.
+        \begin{align}
+            \int_0^\infty \int_0^\infty (s-t)\; \lambda \mu\; e^{-\lambda s -\mu t} \;dsdt \rvert_{ s>t } &= \lambda\mu\cdot\int_0^\infty \int_t^\infty (s-t)\;e^{-\lambda s -\mu t} \;dsdt \\
+            &= \lambda\mu\cdot\int_0^\infty \int_0^\infty x\;e^{-\lambda (x+t) -\mu t} \;dxdt  \nonumber\\ \nonumber
+            &= \lambda\mu\cdot \int_0^\infty x\;e^{-\lambda x}\left(\int_0^\infty e^{-t(\lambda +\mu)}dt \right)dx      \\ \nonumber
+            &=\lambda\mu\cdot\frac{1}{\lambda+\mu} \cdot \int_0^\infty x\;e^{-\lambda x}dx\\ \nonumber
+            &=\lambda\mu\cdot\frac{1}{\lambda+\mu}\cdot\frac{1}{\lambda}\cdot \frac{1}{\lambda}
+            =\frac{\mu}{\lambda(\lambda+\mu)}  \nonumber
+        \end{align}
+        
+           Through the same procedure for the other double integral ($s<t$), we are able to get 
+           $$\frac{\lambda}{\mu(\lambda+\mu)}$$
+    \end{itemize}
+    
+    \newpage
+    \item $EV=E(\max\{S,T\})$
+    $$P(S<t)P(T<t)= (1-e^{-\lambda t})(1-e^{-\mu t})=(1-e^{-\mu t}-e^{\lambda t}+e^{-t(\mu+\lambda)}) $$
+    $$\frac{d}{dt}(1-e^{-\mu t}-e^{\lambda t}+e^{-t(\mu+\lambda)}) 
+    = \left(\frac{1}{\mu}e^{-\mu t} +\frac{1}{\lambda}e^{-\lambda t} - \frac{1}{\mu+\lambda} e^{-t(\mu+\lambda)}\right)$$
+    $$EV = \frac{1}{\mu}+\frac{1}{\lambda}-\frac{1}{\mu+\lambda}=\frac{\lambda\mu+\lambda^2+\mu^2+\lambda\mu}{\lambda\mu(\mu+\lambda)}-\frac{\lambda\mu}{\lambda\mu(\mu+\lambda)} = \frac{\lambda^2+\lambda\mu+\mu^2}{\lambda\mu(\lambda+\mu)}
+    $$
 \end{enumerate}
 Finally, check that your answers to (a),(b),(c) satisfy $E(V-U) = E(V)-E(U)$.
-
+$$E(V-U) = \frac{\mu^2+\lambda^2}{\lambda\mu(\lambda+\mu)}$$
+$$E(V)-E(U) = \frac{\lambda^2+\lambda\mu+\mu^2}{\lambda\mu(\lambda+\mu)} - \frac{1}{\lambda+\mu}
+=\frac{\lambda^2+\mu^2}{\lambda\mu(\lambda+\mu)}$$
 
 \vspace{1.5\baselineskip}
 \textbf{Question 3}\\
-In a hardware store you must first go to server 1 to get your goods and then go to a server 2 to pay for them. Suppose that the times for the two activities are exponentially distributed with means 6 minutes and 3 minutes. Find the answer when times for the two activities are exponentially distributed with rates $\lambda$ and $\mu$. For symmetric notation, let $A_i$ denote the amount of time Al spends at server $i$, and $B_i$ the amount of time Bob spends at server $i$, for $i=1,2$.\\
+In a hardware store you must first go to server 1 to get your goods and then go to a server 2 to pay for them. Suppose that the times for the two activities are exponentially distributed with means 6 minutes and 3 minutes. Find the answer when times for the two activities are exponentially distributed with rates $\lambda$ and $\mu$.
+
+For symmetric notation, let $A_i$ denote the amount of time Al spends at server $i$, and $B_i$ the amount of time Bob spends at server $i$, for $i=1,2$.\\
 $Hint$. Draw a picture of the time line to understand how Al and Bob move through the servers. Use your answer from 2.7. This problem requires no integration.
+\begin{itemize}
+    \item Variables
+\begin{itemize}
+    \item $A:$ The total amount of time Al spent in the store.
+    \item $A_1$: The amount of time Al to get his goods at server 1 
+    \item $A_2$: The amount of time Al pay his goods at server 2
+    \item $B:$ The total amount of time Bob spent in the store.
+    \item $B_1$: The amount of time Bob to get his goods at server 1
+    \item $B_2$: The amount of time Bob pay his goods at server 2
+\end{itemize}
+    \item Things to consider.
+    \begin{itemize}
+        \item Since Al is already with server 1, we must consider the amount of time Al spend there which is $A_1$ at the beginning.
+        \item So we break into only two cases:
+        \begin{enumerate}[label=(\roman*)]
+            \item The server 2 is free, but Bob has not finished yet at server 1. $(A_2<B_1)$\\
+            $A_1+B_1+B_2$
+            \item The server 2 is still with Al, but the Bob has done at server 1. $(B_1<A_2)$
+            $A_1+B_1+(A_2-B_1)_{>0} +B_2             =A_1+B_2+A_2$
+        \end{enumerate}
+        
+    \end{itemize}
+    
+    \item So $B=A_1+B_2+\max\{A_2,B_1\}$
+    \item $E(B)=E(A_1)+E(B_2)+ E(\max\{A_2,B_1\}) $
+    $$= \frac{1}{\mu}+\frac{1}{\lambda} +\left(\frac{1}{\mu}+\frac{1}{\lambda} -\frac{1}{\lambda+\mu} \right)$$  \hfill (Consider Question 2 (c))
+\end{itemize}
+
+
 
 \vspace{1.5\baselineskip}
 \textbf{Question 4}\\
 A machine has two critically important parts and is subject to three different types of shocks. Shocks of type i occur at times of a Poisson process with rate $\lambda_i$. Shocks of types 1 break part 1, those of type 2 break part 2, while those of type 3 break both parts. Let $U$ and $V$ be the failure times of the two parts.
-\begin{enumerate}[label=(\alph*)]
-    \item Find $P(U>s,V>t)$
-    \item Find the distribution of $U$ and the distribution of $V$.
-    \item Are $U$ and $V$ independent?
-\end{enumerate}
-$Hint.$ Let $N_i$ denote a Poisson process of rate $\lambda_i$. For part (a), express the event in terms of $N_1, N-2$ and $N_3$. Part (b) follows quickly from (a). For part (c), check whether $P(U>s,V>t)$ equals $P(U>s)\cdot P(V>t)$.
 
-\vspace{1.5\baselineskip}
+$Hint.$ Let $N_i$ denote a Poisson process of rate $\lambda_i$. For part (a), express the event in terms of $N_1, N-2$ and $N_3$. Part (b) follows quickly from (a). For part (c), check whether $P(U>s,V>t)$ equals $P(U>s)\cdot P(V>t)$.
+\begin{enumerate}[label=(\alph*)]
+    \item Find $P(U>s,V>t)$\\
+    
+    Let $T_{i\;(i=1,2,3)}$ is the times of shock types 1,2,3 occur.
+    $$P(U>s,\;V>t)&=P(T_1>s_2,\;T_2>t_2,\;t_3>\max\{s,t\})    $$
+    $$=P(T_1>s)P(T_2>t)P(T_3>\max\{s,t\})=e^{-\lambda_1 s} e^{-\lambda_2 t}e^{-\lambda_3 \max\{s,t\}}$$
+
+    
+    \item Find the distribution of $U$ and the distribution of $V$.
+    \begin{align}
+        P(U\le s)&=1-P(V>s)\nonumber\\
+        &=1-(P(T_1>s, T_3>s)\nonumber\\
+        &=1-\left(P(T_1>s)P(T_3>s)\right)\nonumber\\
+        &=1-\left(e^{-\lambda_1 s -\lambda_3 s}\right) =1-\left(e^{-s(\lambda_1 +\lambda_3)}\right)\nonumber
+    \end{align}
+    
+    \begin{align}
+        P(V\le t)&=1-P(V>s)\nonumber\\
+        &=1-(P(T_2>s, T_3>s)\nonumber\\
+        &=1-\left(P(T_2>s)P(T_3>s)\right)\nonumber\\
+        &=1-\left(e^{-\lambda_2 s -\lambda_3 s}\right) =1-\left(e^{-s(\lambda_2 +\lambda_3)}\right)\nonumber
+    \end{align}
+    \item Are $U$ and $V$ independent? {\bf No}
+    $$P(U>s,\; V>t) = e^{-\lambda_1 s} e^{-\lambda_2 t}e^{-\lambda_3 \max\{s,t\}} \neq 
+    \left(e^{-s(\lambda_1 +\lambda_3)}\right)\cdot \left(e^{-s(\lambda_2 +\lambda_3)}\right)
+    =P(U>s)\cdot P(V>t)
+    $$
+\end{enumerate}
+
+\newpage
 \textbf{Question 5}\\
 Consider a Poisson process of rate $\lambda$ and let $s$ be a fixed positive number. Let $\sigma$ be the
 random amount of time from s till the next arrival. In symbols,
 $$\sigma = \left(\min\limits_{k:T_k>s} T_k\right) - s.$$
-{\sl Calculate rigorously the probability} the probability $P(\sigma>a)$ for real $a>0$ by using the density functions of the arrival times $T_k$ and the interarrival times $\tau_k$.\\
+{\sl Calculate rigorously} the probability $P(\sigma>a)$ for real $a>0$ by using the density functions of the arrival times $T_k$ and the interarrival times $\tau_k$.\\
 $Hint.$ Draw a picture of the time line. Since $s+\sigma$ is one of the arrival times, you can decompose the probability $P(\sigma>a)$ into different cases according to which $T_k$ is equal to $s+\sigma$.
-
+\begin{align}
+    P(\sigma > a) &= \sum\limits_{k=0}^\infty P(\sigma>a,\; T_k\le s<T_{k+1}) \nonumber\\
+    &=\sum\limits_{k=0}^\infty P(T_{k+1}-s>a,\; T_{k+1}>s,\; T_k\le s)\nonumber\\
+    &=\sum\limits_{k=0}^\infty P(T_{k+1}a+s,\;T_{k+1}>s,\;T_k\le s)\nonumber\\
+    &=\sum\limits_{k=0}^\infty P(T_{k+1}>a+s,\; T_k\le s)\nonumber\\
+    &=\sum\limits_{k=0}^\infty P(T_k \le s,\; T_{k+1}>a+s)\nonumber\\
+    &=\sum\limits_{k=0}^\infty P(T_k\le s,\; T_{k+1}>a+s - T_k)\nonumber \\
+    &=\sum\limits_{k=0}^\infty \int_0^s\int_{s+a-t}^\infty f_{T_k}(t) f_{T_{k+1}} (u)\;dudt\nonumber\\
+    &=\sum\limits_{k=0}^\infty\int_0^s \lambda e^{-\lambda t} \frac{\lambda t^{k-1}}{(k-1)!} 
+    \int_{s+a-t}^\infty \lambda e^{-\lambda u}\;dudt\nonumber\\
+    &=\sum\limits_{k=0}^\infty \frac{\lambda^k}{(k-1)!} e^{-\lambda(s+a)}\int_0^s t^{k-1}\;dt\nonumber\\
+    &=\sum\limits_{k=0}^\infty \frac{(\lambda s)^k}{k!} e^{-\lambda (s+a)} = e^{-\lambda (s+a)}\cdot e^{\lambda s} = e^{-\lambda a}\nonumber
+\end{align}
 
 \end{document}
