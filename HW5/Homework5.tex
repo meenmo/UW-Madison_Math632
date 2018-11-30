@@ -85,22 +85,17 @@ Suppose that the machines fail at rate $\lambda_i$. What is the probability that
     \item By the Memoryless Property, $P(t+\tau_2\;|\; t<\tau_1) = P(\tau_2<\tau_1)$.
     \item So 
     $$P(t+\tau_2<\tau_1\;|\; t<\tau_1)\cdot e^{-\lambda_1 t} =  P(\tau_2<\tau_1) \cdot e^{-\lambda_1 t}$$
-    $$=\iint\limits_{\tau_2<\tau_1} f_{\tau_2(x)}f_{\tau_1}\;dydx\cdot e^{-\lambda_1 t}
+    $$=\iint\limits_{\tau_2<\tau_1} f_{\tau_2}(x)f_{\tau_1}(y)\;dydx\cdot e^{-\lambda_1 t}
     =e^{-\lambda_1 t}\left(\int_0^\infty \lambda_2 e^{-\lambda_2 x}\left(\int_x^\infty \lambda_1 e^{-\lambda_1 y}dy\right)dx\right)$$
     $$=e^{-\lambda_1 t}\left(\int_0^\infty \lambda_2 e^{-\lambda_2 x}\left(
     e^{-\lambda_1 x}
     \right)dx\right)
-    =e^{-\lambda_1 t}\left(\int_0^\infty \lambda_2 e^{-(\lambda_1+\lambda_2) x}
-    dx\right)$$
-    $$=e^{-\lambda_1 t}\left(\int_0^\infty \lambda_2 e^{-(\lambda_1+\lambda_2) x}
-    dx\;\;\cdot\;\; \frac{\lambda_1+\lambda_2}{\lambda_1+\lambda_2}\right)
-    =e^{-\lambda_1 t}\left(\frac{\lambda_2}{\lambda_1+\lambda_2} \int_0^\infty \lambda_2 e^{-(\lambda_1+\lambda_2) x} \;\cdot\;(\lambda_1+\lambda_2)
-    dx \right)    $$
+    =e^{-\lambda_1 t}\lambda_2\left(\underbrace{\int_0^\infty  e^{-(\lambda_1+\lambda_2) x}
+    dx}_{\frac{1}{\lambda_1+\lambda_2}}\right)$$
+    $$=e^{-\lambda_1 t}\cdot\frac{\lambda_2}{\lambda_1+\lambda_2}$$
     
-    \item Since $$\int_0^\infty \lambda_2 e^{-(\lambda_1+\lambda_2) x} \;\cdot\;(\lambda_1+\lambda_2)
-    dx = 1,$$
-    the remainder is the probability that machine 2 is the first to fail
-    $$e^{-\lambda_1 t}\cdot\frac{\lambda_2}{\lambda_1+\lambda_2}$$
+
+    
 \end{itemize}
 
 \newpage
@@ -117,6 +112,12 @@ Let $S$ and $T$ be exponentially distributed with rates $\lambda$ and $\mu$. Let
         
         
     \end{itemize}
+    \item $EV=E(\max\{S,T\})$
+    $$P(S<t)P(T<t)= (1-e^{-\lambda t})(1-e^{-\mu t})=(1-e^{-\mu t}-e^{\lambda t}+e^{-t(\mu+\lambda)}) $$
+    $$\text{Density: }\frac{d}{dt}(1-e^{-\mu t}-e^{\lambda t}+e^{-t(\mu+\lambda)}) 
+    = \left(\mu e^{-\mu t} +\lambda e^{-\lambda t} - (\mu+\lambda) e^{-t(\mu+\lambda)}\right)$$
+    $$EV = \int_0^\infty t\left(\mu e^{-\mu t} +\lambda e^{-\lambda t} - (\mu+\lambda) e^{-t(\mu+\lambda)}\right)dt $$
+    $$=\frac{1}{\mu}+\frac{1}{\lambda}-\frac{1}{\mu+\lambda}=\frac{\lambda\mu+\lambda^2+\mu^2+\lambda\mu}{\lambda\mu(\mu+\lambda)}-\frac{\lambda\mu}{\lambda\mu(\mu+\lambda)} = \frac{\lambda^2+\lambda\mu+\mu^2}{\lambda\mu(\lambda+\mu)}    $$
     
     \item $E(V-U)$. Compute first $P(V-U > s)$ for $s>0$ either by integrating densities of $S$ and $T$ or by conditioning on the events $S<T$ and $T<S$. From $P(V-U>s)$ deduce the density function $f(v-u)$ of $V-U$, and then the mean $E(V-U)$ by integrating the density.
     
@@ -131,7 +132,7 @@ Let $S$ and $T$ be exponentially distributed with rates $\lambda$ and $\mu$. Let
             \vspace{1\baselineskip}
             Let $x= s-t$.
         \begin{align}
-            \int_0^\infty \int_0^\infty (s-t)\; \lambda \mu\; e^{-\lambda s -\mu t} \;dsdt \rvert_{ s>t } &= \lambda\mu\cdot\int_0^\infty \int_t^\infty (s-t)\;e^{-\lambda s -\mu t} \;dsdt \\
+            \int_0^\infty \int_0^\infty (s-t)\; \lambda \mu\; e^{-\lambda s -\mu t} \;dsdt \rvert_{ s>t } &= \lambda\mu\cdot\int_0^\infty \int_t^\infty (s-t)\;e^{-\lambda s -\mu t} \;dsdt \nonumber \\
             &= \lambda\mu\cdot\int_0^\infty \int_0^\infty x\;e^{-\lambda (x+t) -\mu t} \;dxdt  \nonumber\\ \nonumber
             &= \lambda\mu\cdot \int_0^\infty x\;e^{-\lambda x}\left(\int_0^\infty e^{-t(\lambda +\mu)}dt \right)dx      \\ \nonumber
             &=\lambda\mu\cdot\frac{1}{\lambda+\mu} \cdot \int_0^\infty x\;e^{-\lambda x}dx\\ \nonumber
@@ -143,20 +144,14 @@ Let $S$ and $T$ be exponentially distributed with rates $\lambda$ and $\mu$. Let
            $$\frac{\lambda}{\mu(\lambda+\mu)}$$
     \end{itemize}
     
-    \newpage
-    \item $EV=E(\max\{S,T\})$
-    $$P(S<t)P(T<t)= (1-e^{-\lambda t})(1-e^{-\mu t})=(1-e^{-\mu t}-e^{\lambda t}+e^{-t(\mu+\lambda)}) $$
-    $$\frac{d}{dt}(1-e^{-\mu t}-e^{\lambda t}+e^{-t(\mu+\lambda)}) 
-    = \left(\frac{1}{\mu}e^{-\mu t} +\frac{1}{\lambda}e^{-\lambda t} - \frac{1}{\mu+\lambda} e^{-t(\mu+\lambda)}\right)$$
-    $$EV = \frac{1}{\mu}+\frac{1}{\lambda}-\frac{1}{\mu+\lambda}=\frac{\lambda\mu+\lambda^2+\mu^2+\lambda\mu}{\lambda\mu(\mu+\lambda)}-\frac{\lambda\mu}{\lambda\mu(\mu+\lambda)} = \frac{\lambda^2+\lambda\mu+\mu^2}{\lambda\mu(\lambda+\mu)}
-    $$
+    
 \end{enumerate}
 Finally, check that your answers to (a),(b),(c) satisfy $E(V-U) = E(V)-E(U)$.
 $$E(V-U) = \frac{\mu^2+\lambda^2}{\lambda\mu(\lambda+\mu)}$$
 $$E(V)-E(U) = \frac{\lambda^2+\lambda\mu+\mu^2}{\lambda\mu(\lambda+\mu)} - \frac{1}{\lambda+\mu}
 =\frac{\lambda^2+\mu^2}{\lambda\mu(\lambda+\mu)}$$
 
-\vspace{1.5\baselineskip}
+\newpage
 \textbf{Question 3}\\
 In a hardware store you must first go to server 1 to get your goods and then go to a server 2 to pay for them. Suppose that the times for the two activities are exponentially distributed with means 6 minutes and 3 minutes. Find the answer when times for the two activities are exponentially distributed with rates $\lambda$ and $\mu$.
 
@@ -187,30 +182,29 @@ $Hint$. Draw a picture of the time line to understand how Al and Bob move throug
     
     \item So $B=A_1+B_2+\max\{A_2,B_1\}$
     \item $E(B)=E(A_1)+E(B_2)+ E(\max\{A_2,B_1\}) $
-    $$= \frac{1}{\mu}+\frac{1}{\lambda} +\left(\frac{1}{\mu}+\frac{1}{\lambda} -\frac{1}{\lambda+\mu} \right)$$  \hfill (Consider Question 2 (c))
+    $$= \frac{1}{\mu}+\frac{1}{\lambda} +\left(\frac{1}{\mu}+\frac{1}{\lambda} -\frac{1}{\lambda+\mu} \right)$$  \hfill (Consider Question 2 (b))
 \end{itemize}
 
 
 
-\vspace{1.5\baselineskip}
+\newpage
 \textbf{Question 4}\\
 A machine has two critically important parts and is subject to three different types of shocks. Shocks of type i occur at times of a Poisson process with rate $\lambda_i$. Shocks of types 1 break part 1, those of type 2 break part 2, while those of type 3 break both parts. Let $U$ and $V$ be the failure times of the two parts.
 
-$Hint.$ Let $N_i$ denote a Poisson process of rate $\lambda_i$. For part (a), express the event in terms of $N_1, N-2$ and $N_3$. Part (b) follows quickly from (a). For part (c), check whether $P(U>s,V>t)$ equals $P(U>s)\cdot P(V>t)$.
+$Hint.$ Let $N_i$ denote a Poisson process of rate $\lambda_i$. For part (a), express the event in terms of $N_1, N_2$ and $N_3$. Part (b) follows quickly from (a). For part (c), check whether $P(U>s,V>t)$ equals $P(U>s)\cdot P(V>t)$.
 \begin{enumerate}[label=(\alph*)]
     \item Find $P(U>s,V>t)$\\
     
     Let $T_{i\;(i=1,2,3)}$ is the times of shock types 1,2,3 occur.
-    $$P(U>s,\;V>t)&=P(T_1>s_2,\;T_2>t_2,\;t_3>\max\{s,t\})    $$
-    $$=P(T_1>s)P(T_2>t)P(T_3>\max\{s,t\})=e^{-\lambda_1 s} e^{-\lambda_2 t}e^{-\lambda_3 \max\{s,t\}}$$
+    $$P(U>s,\;V>t)&=P(N_1(s)=0,\;N_2(t)=0,\;N_3(\max(s,t))=0) =e^{-\lambda_1 s} e^{-\lambda_2 t}e^{-\lambda_3 \max\{s,t\}}$$
 
     
     \item Find the distribution of $U$ and the distribution of $V$.
     \begin{align}
         P(U\le s)&=1-P(V>s)\nonumber\\
-        &=1-(P(T_1>s, T_3>s)\nonumber\\
-        &=1-\left(P(T_1>s)P(T_3>s)\right)\nonumber\\
-        &=1-\left(e^{-\lambda_1 s -\lambda_3 s}\right) =1-\left(e^{-s(\lambda_1 +\lambda_3)}\right)\nonumber
+        &=1-P(T_1>s, T_3>s)\nonumber\\
+        &=1-P(T_1>s)P(T_3>s)\nonumber\\
+        &=1-e^{-\lambda_1 s -\lambda_3 s} =1-\left(e^{-s(\lambda_1 +\lambda_3)}\right)\nonumber
     \end{align}
     
     \begin{align}

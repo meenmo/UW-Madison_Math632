@@ -1,0 +1,78 @@
+% --------------------------------------------------------------
+% This is all preamble stuff that you don't have to worry about.
+% Head down to where it says "Start here"
+% --------------------------------------------------------------
+ 
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,scrextend}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{fancybox}
+\usepackage{tikz}
+\usepackage{tasks}
+\pagestyle{fancy}
+\usepackage[makeroom]{cancel}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{mwe}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\qed}{\hfill$\blacksquare$}
+\let\newproof\proof
+\renewenvironment{proof}{\begin{addmargin}[1em]{0em}\begin{newproof}}{\end{newproof}\end{addmargin}\qed}
+% \newcommand{\expl}[1]{\text{\hfill[#1]}$}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{reflection}[2][Reflection]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\setlength{\parindent}{0pt}
+\begin{document}
+ \settasks{
+	counter-format=(tsk[r]),
+	label-width=4ex
+}
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+\lhead{Math 632}
+\chead{Homework 7}
+\rhead{Meenmo Kang}
+1.Three children take turns shooting a ball at a basket. They ea
+ch shoot until they miss and then it is next child’s turn. Suppose that child $i\;(1\le i \le 3)$ makes a basket with probability $p_i$ and that successive trials are independent. Use the following two approaches to determine the average fraction of time in the long run that child $i$ shoots.
+\begin{enumerate}[label=(\alph*)]
+    \item (first method) Consider the renewal process with interarrival times $t_k = s_k^1 + s_k^2 + s_k^3,$ where $s_k^i$ is the number of shots child $i$ takes in the $k^{th}$ turn. Find $P(s_k^i = n)$. Then use this to compute the long run fraction of time child $i$ spends shooting the ball.
+    
+    \item (second method) Consider the discrete time Markov chain with three states, where the system is in state $i\in S = \{1,2,3\}$ if child $i$ has the ball. Use the theory from chapter 1 to determine the long run fraction of time child $i$ spends shooting the ball.
+\end{enumerate}
+
+2. A young doctor is working at night in an emergency room. Emergencies come in at times of a Poison process with rate 0.5 per hour. The doctor can only get to sleep when it has been 36min (0.6h) since the last emergency. For example, if there is an emergency at 1:00 and a second one at 1:17 then she will not be able to get to sleep until at least 1:53, and it will be even later if there is another emergency before that time.
+\begin{enumerate}[label=(\alph*)]
+    \item Compute the long-run fraction of time she spends sleeping, by formulating a renewal reward process in which the reward in the $i$th interval is the amount of time she gets to sleep in that interval.
+    \item The doctor alternates between sleeping for an amount of time $s_i$ and being awake for an amount of time $u_i$. Use the result from (a) to compute $Eu_i$.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,135 @@
+% --------------------------------------------------------------
+% This is all preamble stuff that you don't have to worry about.
+% Head down to where it says "Start here"
+% --------------------------------------------------------------
+ 
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,scrextend}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{fancybox}
+\usepackage{tikz}
+\usepackage{tasks}
+\pagestyle{fancy}
+\usepackage[makeroom]{cancel}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{mwe}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\qed}{\hfill$\blacksquare$}
+\let\newproof\proof
+\renewenvironment{proof}{\begin{addmargin}[1em]{0em}\begin{newproof}}{\end{newproof}\end{addmargin}\qed}
+% \newcommand{\expl}[1]{\text{\hfill[#1]}$}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{reflection}[2][Reflection]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\setlength{\parindent}{0pt}
+\begin{document}
+ \settasks{
+	counter-format=(tsk[r]),
+	label-width=4ex
+}
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+\lhead{Math 632}
+\chead{Practice Questions for Midterm 2}
+\rhead{Meenmo Kang}
+
+\begin{enumerate}
+    \item On a winter day in Madison, ice cream cones are sold at The Chocolate Shoppe on State Street as a Poisson process with rate 3 per hour. The Chocolate Shoppe opens at 11:00am and closes at 9pm. Let N(t) denote the number of ice cream cones sold until time t, where we consider t = 0 to be 11:00am.
+    
+    \begin{enumerate}[label=(\alph*)]
+        \item Given that 2 ice cream cones are sold in the first hour of operation, what is the probability that 10 ice cream cones in total are sold by 3pm?
+        $$P(N(4)=10\;|N(1)=2) = \frac{P(N(1)=2),\;N(4)=10)}{P(N(1)=2)}$$
+        $$=\frac{P(N(1)=2,\;N(4)-N(1)=8)}{P(N(1)=2} = \frac{P(N(1)=2)\cdot P(N(3)=8)}{P(N(1)=2)}=P(N(3)=8)$$
+        \item 40 ice cream cones are sold all day. What is the probability 10 were sold from 5pm to 8pm?
+        
+        $$P(N(9)-N(6)=10\;|\;N(10)=40) 
+        =\frac{P(N(9)-N(6)=10,\;N(10)=40)}{P(N(10)=40)}$$
+        
+        Let X= \# of arrivals in [0,6]$\cup$(9,10]. X$\sim$ Poisson(7,3). Then
+        $$\frac{P(N(7)=30)\cdot P(N(3)=10)}{P(N(10)=40)}$$
+        Or
+        $$P(N(9)-N(6)=10\;|\;N(10)=40) = \binom{40}{10}\left(\frac{3}{10}\right)^{10}\left(\frac{7}{10}\right)^{30}$$
+        \item Suppose the only favors are chocolate, vanilla, and strawberry. Seven out of ten customers buy a chocolate cone, 2 out of ten buy a strawberry cone, and 1 out of ten buy a vanilla cone. What is the expected time until the 5th chocolate ice cream cone is sold? \\
+        {\sl Comment}: It is possible for the time of the fifth chocolate cone to extend beyond one day, which for our setup means the time is greater than 10. That is fine, we just interpret 10.5 to mean 11:30am on the second day.
+        
+        $$E[\text{time till 5th arrival of $N_c$}]=5\cdot \frac{10}{21}$$
+        
+        \newpage
+        \item Given that 5 ice cream cones are sold in total from 6pm to 8pm, what is the probability 2 strawberry ice cream cones are sold from 5pm to 8 pm?
+        \end{enumerate}
+        Let N be the process of ice cream cones sold with rate 3.
+$$\text{$\lambda_c:$ Rate for chocolate= $0.7\cdot 3$}\quad
+\text{$\lambda_s:$ Rate for strawberry = $0.2\cdot 3$}\quad
+\text{$\lambda_v:$ Rate for vanilla= $0.1\cdot 3$}$$
+\begin{itemize}[label={}]
+   
+    \begin{align}
+        P(N_s(6,9]=2\;|\;N(7,9]=5)&= \frac{P(N_5(6,9]=2,\;N(7,9]=5)}{P(N(7,9]=5)}\nonumber \\
+        &=\sum\limits_{j=0}^2\frac{P(N_s(6,7]=j,\;N_s(7,9)=2-j,\;N(7,9]=5)}{P(N(7,9]=5)} \nonumber \\
+        &=\underbrace{\sum\limits_{j=0}^2\frac{P(N_s(6,7]=j)\overbrace{P(N_s(7,9]=2-j,\;N(7,0]=5)}^{\substack{P(N_s(7,9]=2-j,\; N_{cv}(7,9]=3+j):\\
+        \text{Independece by the thinning property}}}}{P(N(7,9]=5)}}_{\text{Independence of arrivals in (6,7] \& (7,9]}} \nonumber \\
+        &= \sum\limits_{j=0}^2
+        \frac{e^{\frac{3}{5}}(\frac{3}{5})^j\cdot \frac{1}{j!}\cdot e^{-\frac{6}{5}}(\frac{6}{5})^{2-j}\frac{1}{(2-j)!}\cdot e^{-\frac{24}{5}}(\frac{24}{5})^{3+j}\frac{1}{(3+j)!}}
+        {e^{-6}\frac{6^5}{5!}} \nonumber \\
+        &= \sum\limits_{j=0}^2 \underbrace{e^{-\frac{3}{5}}\left(\frac{3}{5}\right)^j\frac{1}{j!}}_{\substack{\text{Poisson probability for}\\ \text{strawberries in (6,7]}}}
+        \underbrace{\binom{5}{2-j}  \left(\frac{1}{5}\right)^{2-j}\left(\frac{4}{5}\right)^{3+j}}_{\substack{\text{Binomial probability of}\\ \text{  strawberries in (7,9],} \\ \text{comes from conditioning on} \\  \text{the total number of sales}}} \nonumber 
+    \end{align}
+\end{itemize}
+
+    
+    \item On a deep sea fishing trip, the fisherman catch albacore tuna as a Poisson process with rate 5 per hour and skipjack tuna as a Poisson process with rate 2 per hour. Assume these processes are independent. The average weight of an albacore tuna is 70 pounds, with variance 10. The average weight of a skipjack tuna is 40 pounds, with variance 5. Let M(t) denote the total weight of the fish they have caught from the start of their trip up to time t. What is the mean and variance of M(t)?
+    
+    
+    $$M(t)=M_a(t)+M_s(t) \quad\text{independent}$$
+    \begin{align}
+        E[M(t)] &= E[M_a(t)]+E[M_s(t)]\nonumber \\
+        &=E[N_a(t)]\cdot 70 +EN_s(t)\cdot 40 \nonumber \\
+        &=5t\cdot 70 +2t\cdot 40  = 430t \nonumber
+    \end{align}
+    
+    \begin{align}
+        Var[M(t)]&=E[M_a(t)]+E[M_s(t)]\nonumber \\
+        &=EN_a(t)\cdot(10+70^2)+EN_S(t)\cdot(5+40^2)\nonumber\\
+        &=5t\cdot 4910 +2t\cdot 1605 =...\nonumber
+    \end{align}
+    
+    \item Suppose customers arrive to your store as a Poisson process with rate 5 per hour. Given that exactly 4 arrivals have occurred by the end of your first hour, and the cumulative distribution function for the third arrival time. More precisely, and\\ $P(T_3\le s \;|\;N(t)=4)$ for all real values of $s$.
+    
+    \begin{align}
+        P(T_4\le s\;|\; N(T)=4) &= P(N(S)\ge 3\;|\; N(t) =4) \nonumber \\
+        &=P(N(s)=3\;|\;N(t)=4)+P(N(s)=4\;|\;N(t)=4) \nonumber \\
+        &=3\cdot\left(\frac{s}{t}\right)^3\left(1-\frac{s}{t}\right) + \left(\frac{s}{t}\right)^4 \nonumber \\
+        &=\left(\frac{s}{t}\right)^3(3-3\frac{s}{t} +\frac{s}{t}) = (3-2\frac{s}{t})\left(\frac{s}{t}\right)^3 \nonumber
+    \end{align}
+\end{enumerate}
+
+\end{document}
