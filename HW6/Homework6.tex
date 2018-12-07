@@ -89,20 +89,30 @@
     \item P(after the 3rd arrival there are no arrivals for 20 seconds,\\ 
     \qquad but after that the next two arrivals come within 10 seconds)
     $$\includegraphics[height=1.4cm, width=12cm]{HW6/P1.jpeg}$$
-    $$\text{No arrival for 20 seconds after $T_3$: }P(\tau_4 > 20) = P(N(20)=0) = e^{-20\lambda}\cdot \frac{(20\lambda)^0}{0!}=e^{-20\lambda}$$
-    $$\text{Two arrivals within 10 seconds after $T_4$: }P(N(10)=2)= e^{-10\lambda}\cdot \frac{(10\lambda)^{2}}{2!}$$
-    So the ultimate probability we are trying to get is
-    $$e^{-20\lambda}\cdot e^{-10\lambda}\cdot \frac{(10\lambda)^2}{2!} = e^{-30\lambda}\cdot \frac{100\lambda^2}{2!}$$
+    \begin{align}
+        P(20<t_4<30,\; 0<t_5<30-t_4) 
+        &= \iint\limits_{\{(t_4,t_5)|20<t_4<30,0<t_5<30-t_4\}}f_4(t_4)f_5(t_5)dt_5dt_4 \nonumber\\
+        &=\int_{20}^{30} \int_0^{30-t_4} \lambda^2 e^{-\lambda t_4} e^{-\lambda t_5} dt_5dt_4 \nonumber \\
+        &=\int_{20}^{30} \lambda e^{-\lambdat_4}\{1-e^{-\lambda(30-t_4)}\}dt_4 \nonumber \\
+        &=e^{-20\lambda}-e^{-30\lambda} -10\lambda e^{-30\lambda} \nonumber
+    \end{align}
+    Or
+    \begin{align}
+        P(M(20)=0,\;M(30)\ge 2) &= P(M(30-M(20)\ge 2\;|\;M(20)=0)\cdot P(M(20)=0) \nonumber \\
+        &=\{1-P(M(30)-M(20)\ge 2\;|\;M(20)=0)\}\cdot e^{-20\lambda} \nonumber \\
+        &=\{1-e^{-10\lambda}-10\lambda e^{-10\lambda}\}\cdot e^{-20\lambda} \nonumber \\
+        &=e^{-20\lambda}-e^{-30\lambda}-10\lambda e^{-30\lambda} \nonumber
+    \end{align}
+    
+    
     \item $P(N(3)=k\;|\; T_2\le 3)$
-    $$=    \frac{P(N(3)=k)\cap P(T_2\le 3)}{P(T_2\le 3)}
-    = \frac{P(N(3)=k)}{P(T_2\le 3)}
-    = \frac{e^{-3\lambda}\frac{(3\lambda)^k}{k!}}{P(T_1+T_2\le 3)}$$
-    $$=\underbrace{\frac{\cancel{e^{-3\lambda}}\frac{(3\lambda)^k}{k!}}{\int_0^3 \lambda \cancel{e^{-t\lambda}}\lambda \cancel{e^{-\lambda(3-t)}}dt}}_{Convolution}
-    =\frac{\frac{(3\lambda)^k}{k!}}{3\lambda^2}
-    $$
-    
-    
     $$\includegraphics[height=1.4cm, width=12cm]{HW6/P2.jpeg}$$
+    $$=    \frac{P(N(3)=k)\cap P(N(3)\ge 2)}{P(T_2\le 3)}
+    = \frac{P(N(3)=k)}{P(T_2\le 3)}
+    = \frac{e^{-3\lambda}\frac{(3\lambda)^k}{k!}}{1-e^{-3\lambda}-3\lambda e^{-3\lambda}}$$
+    $$=\frac{1}{k!}\frac{(3\lambda)^k}{e^{3\lambda}-1-3\lambda}    $$
+    
+    
     
     
     \item $P(N(2)=k\;|\; T_3 > 4)$
