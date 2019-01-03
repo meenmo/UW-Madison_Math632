@@ -75,11 +75,9 @@ ch shoot until they miss and then it is next child’s turn. Suppose that child 
     $$
     \vspace{1\baselineskip}
     The long run fraction of time child $i$ spends shooting the ball:
-    $$\lim\limits_{t\to\infty}\frac{1}{t}\sum\limits_{i=1}^{N(t)} s_k^i = \frac{Es_k^i}{Et_i} =
+    $$\lim\limits_{t\to\infty}\frac{1}{t}\sum\limits_{i=1}^{N(t)} s_k^i = \frac{Es_k^i}{Et_k} =
     \frac{\frac{1}{1-p_i}}   {\frac{1}{1-p_1}+\frac{1}{1-p_2}+\frac{1}{1-p_3}}
-    =\frac{1-p_i}{\sum\limits_{i=1}^3 \frac{1}{1-p_i}}$$
-    
-    
+    =\frac{\frac{1}{1-p_i}}{\sum\limits_{i=1}^3 \frac{1}{1-p_i}}$$
     
 
     \item (second method) Consider the discrete time Markov chain with three states, where the system is in state $i\in S = \{1,2,3\}$ if child $i$ has the ball. Use the theory from chapter 1 to determine the long run fraction of time child $i$ spends shooting the ball.
@@ -89,7 +87,7 @@ ch shoot until they miss and then it is next child’s turn. Suppose that child 
     p_1&1-p_1&0\\0&p_2&1-p_2\\1-p_3&0&p_3
     \end{bmatrix}$$
     
-   Through the stationary distribution we can obtain $\pi$ such that $P=\pi P$.
+   Through the stationary distribution we can obtain $\pi$ such that $\pi P=\pi$.
    $$\pi = \left(\frac{\frac{1}{1-p_1}}{\sum\limits_{i=1}^3 \frac{1}{1-p_i}},\; \frac{\frac{1}{1-p_2}}{\sum\limits_{i=1}^3 \frac{1}{1-p_i}},\; \frac{\frac{1}{1-p_3}}{\sum\limits_{i=1}^3 \frac{1}{1-p_i}}    \right)$$
    
    $\pi_{1,2,3}$ is the long run fraction of time child $i$ spends shooting the ball.
